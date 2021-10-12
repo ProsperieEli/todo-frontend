@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class todolist extends Component {
+export default class Todolist extends Component {
     render() {
         return (
             <div>

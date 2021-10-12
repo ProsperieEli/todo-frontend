@@ -1,42 +1,49 @@
 import './App.css';
 
-import React, { Route, Component, Router, routerProps, Switch } from 'react'
-import home from './pages/home';
-import signup from './pages/signup';
-import signin from './pages/signin';
-import todolist from './pages/todolist';
-import { NavLink } from 'react-router-dom';
+import React, { Component} from 'react'
+import Home from './pages/Home.js';
+import Signup from './pages/Signup.js';
+import Signin from './pages/Signin.js';
+import Todolist from './pages/Todolist.js';
+import {
+  NavLink,
+BrowserRouter as Router,
+Route,
+Switch,
+Redirect} from 'react-router-dom';
 
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <NavLink to='/'>Home </NavLink>
-        <NavLink to='/signup'> SignUp </NavLink>
-        <NavLink to='/signin'> SignIn </NavLink>
-        <NavLink to='/TodoList'> ListPage </NavLink>
       <Router>
+        <header>
+        <NavLink exact activeClassName="active" to='/'>Home </NavLink>
+        <NavLink exact activeClassName="active" to='/signup'> SignUp </NavLink>
+        <NavLink exact activeClassName="active" to='/signin'> SignIn </NavLink>
+        <NavLink exact activeClassName="active" to='/TodoList'> ListPage </NavLink>
+        </header>
           <Switch>
               <Route 
                   path="/" 
                   exact
-                  render={(routerProps) => <home {...routerProps} />} 
+                  render={(routerProps) => <Home {...routerProps} />} 
               />
               <Route 
-                  path="/auth/signup" 
+                  path="/signup" 
                   exact
-                  render={(routerProps) => <signup {...routerProps} />} 
+                  render={(routerProps) => <Signup {...routerProps} />} 
               />
               <Route 
-                path="/auth/signin"
+                path="/signin"
                 exact
-                render={(routerProps) => <signin {...routerProps} />} 
+                render={(routerProps) => <Signin {...routerProps} />} 
               />
                 <Route 
-                path="/api/TodoList" 
+                path="/TodoList" 
                 exact
-                render={(routerProps) => <todolist {...routerProps} />} 
+                render={(routerProps) => <Todolist {...routerProps} />} 
                 />
           </Switch>
       </Router>
