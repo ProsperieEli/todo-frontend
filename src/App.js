@@ -12,8 +12,17 @@ Route,
 Switch,
 Redirect} from 'react-router-dom';
 
-
+const TOKEN_KEY = 'TOKEN';
 export default class App extends Component {
+  state = {
+    token: localStorage.getItem(TOKEN_KEY)
+  }
+
+  handleTokenChange = token => {
+    localStorage.setItem(TOKEN_KEY, token)
+    this.setState({ token: token})
+  }
+
   render() {
     return (
       <div>
@@ -33,17 +42,23 @@ export default class App extends Component {
               <Route 
                   path="/signup" 
                   exact
-                  render={(routerProps) => <Signup {...routerProps} />} 
+                  render={(routerProps) => <Signup 
+                    handleTokenChange={this.handleTokenChange}
+                    {...routerProps} />} 
               />
               <Route 
                 path="/signin"
                 exact
-                render={(routerProps) => <Signin {...routerProps} />} 
+                render={(routerProps) => <Signin 
+                  handleTokenChange={this.handleTokenChange}{...routerProps} />} 
               />
                 <Route 
                 path="/TodoList" 
                 exact
-                render={(routerProps) => <Todolist {...routerProps} />} 
+                render={(routerProps) => this.state.token ? <Todolist 
+                  token={this.state.token} {...routerProps}/>
+                  : <Redirect to="/signup" /> 
+                }
                 />
           </Switch>
       </Router>
