@@ -1,7 +1,7 @@
 import request from 'superagent';
 
 
-const URL = 'https://git.heroku.com/agile-hamlet-58796.git';
+const URL = 'https://agile-hamlet-58796.herokuapp.com';
 
 export async function getTodos(token) {
     const response = await request
@@ -11,19 +11,19 @@ export async function getTodos(token) {
     return response.body;
 }
 
-export async function updateTodos(id, completed, token) {
+export async function updateTodos(id, status, job, due, token) {
     const response = await request
     .put(`${URL}/api/todoLists/${id}`)
-    .send({ completed: completed })
+    .send({ status: status, job: job, due: due })
     .set('Authorization', token)
 
     return response.body;
 }
 
-export async function createTodos(Joblisting, token){
+export async function createTodos(job, due, token){
     const response = await request
     .post(`${URL}/api/todoLists`)
-    .send({ Joblisting: Joblisting})
+    .send({ job: job, due: due })
     .set('Authorization', token)
 
     return response.body
